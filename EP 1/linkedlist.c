@@ -58,7 +58,7 @@ void llinserePodcastFim(Playlist* playlist){
     if(playlist->ini == NULL){
         playlist->ini = newPodcast;
         playlist->fim = newPodcast;
-        playlist->atual = playlist->ini;
+        playlist->atual = newPodcast;
         newPodcast->next = NULL;
         newPodcast->prev = NULL;
     }else
@@ -139,13 +139,10 @@ void llremovePodcast(Playlist* playlist){
 }
 
 void lltocar(Playlist* playlist){
-    if(playlist->ini != NULL)
+    if(playlist->atual != NULL)
     {
         printf("\nPodcast: %s", playlist->atual->nomePodcast);
         printf("\nEpisodio: #%d- %s", playlist->atual->numEpisodio, playlist->atual->nomeEpisodio);
-    }
-    else if(playlist->ini->next = NULL){
-        printf("\nNao tem proximo na fila!");
     }
     else{
         printf("\nPlaylist vazia!");
@@ -153,16 +150,17 @@ void lltocar(Playlist* playlist){
 }
 
 void lltocarNext(Playlist* playlist, bool shuffle){
-    PodquestMVP ajudante = playlist->atual;
+    
     if(playlist->ini != NULL)
     {
-        if(ajudante != NULL && ajudante->next != NULL)
+        if(playlist->atual != NULL && playlist->atual->next != NULL)
         {
             if(shuffle)
             {
                 while(true)
 			    {
-                    for(; ajudante->next != NULL; ajudante = ajudante->next)
+                    playlist->fim = playlist->ini;
+                    for(; playlist->atual->next != NULL; playlist->atual = playlist->atual->next)
 				    {
 					    playlist->atual->next = playlist->atual->next->next->next;
 				    }
@@ -170,15 +168,14 @@ void lltocarNext(Playlist* playlist, bool shuffle){
             }
             else
             {
-                printf("\nPodcast: %s", ajudante->next->nomePodcast);
-                printf("\nEpisodio: #%d- %s", ajudante->next->numEpisodio, ajudante->next->nomeEpisodio);                
+                printf("\nPodcast: %s", playlist->atual->next->nomePodcast);
+                printf("\nEpisodio: #%d- %s", playlist->atual->next->numEpisodio, playlist->atual->next->nomeEpisodio);                
                 playlist->atual = playlist->atual->next;
             }
         }
     }else{
         printf("\nPlaylist Vazia!");
     } 
-    free(ajudante);
 
 }
 
