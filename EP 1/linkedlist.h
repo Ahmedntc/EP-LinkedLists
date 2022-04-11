@@ -39,15 +39,19 @@ Playlist* llNewPlaylist();
 PodquestMVP llNewPodcast();
 
 //funçao que insere o podcast criado no final da playlist
-void llinserePodcast(Playlist* playlist);
+void llinserePodcastFim(Playlist* playlist);
 
 //funçao que recebe o id de um podcast e numero de um episodio do mesmo para ser removido da playlist desejada
 void llremovePodcast(Playlist* playlist);
 
-//funçao de busca na playlist para auxiliar na remoçao 
+/*funçao de busca na playlist para auxiliar na remoçao
+* @param nome podcast e numEpisodio que serao o alvo da busca
+*/
 PodquestMVP llBuscaPodcast(Playlist* playlist, char nomePodcast[64], int numEpisodio);
 
-//função que toca o proximo podcast que recebe shuffle como parametro podendo estar ou nao ativado, quando verdadeiro o proximo episodia a ser tocado sera aleatorio
+/*função que toca o proximo podcast
+* @param shuffle booleano que quando verdadeiro o proximo a ser tocado sera aleatorio quando falso seguira a ordem em que os episodios foram adiconados na lista
+*/
 void lltocarNext(Playlist* playlist, bool shuffle);
 
 //funçao que toca o podcast atual
