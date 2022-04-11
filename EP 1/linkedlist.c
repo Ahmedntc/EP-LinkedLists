@@ -50,7 +50,8 @@ void llinserePodcast(Playlist* playlist){
     PodquestMVP newPodcast = llNewPodcast();
     newPodcast->idPodcast = 0;
     for(PodquestMVP aux = playlist->ini; aux != NULL; aux = aux->next){
-        newPodcast->idPodcast++;
+        if(aux->idPodcast == newPodcast->idPodcast)
+            newPodcast->idPodcast++;
     }
     if(playlist->ini == NULL){
         playlist->ini = newPodcast;
@@ -74,13 +75,23 @@ PodquestMVP llBuscaPodcast(Playlist* playlist, char nomeAlvo[64], int epAlvo){
 	return NULL;
 }
 
-void llremovePodcast(Playlist* playlist, char nomeAlvo[64], int epAlvo ){
+void llremovePodcast(Playlist* playlist){
+    char nomeAlvo[64];
+    int epAlvo = 0; 
+
+    printf("\nNome do podcast a ser removido:");
+    fgets(nomeAlvo, 64, stdin);
+    remove_newline_ch(nomeAlvo);
+
+    printf("\nNumero do episodio a ser removido do podcast:");
+    scanf("%d", &epAlvo);
+    getchar();
+
     PodquestMVP targetEpisode = llBuscaPodcast(playlist, nomeAlvo, epAlvo);
     if (targetEpisode != NULL)
     {
         if (targetEpisode == playlist->ini)
         {
-			PodquestMVP removido = playlist->ini;
             if(playlist->ini->next != NULL) 
             {
                 playlist->ini = playlist->ini->next;
@@ -91,14 +102,12 @@ void llremovePodcast(Playlist* playlist, char nomeAlvo[64], int epAlvo ){
                 playlist->ini = NULL;
                 playlist->fim = NULL;
             }
-            printf("Podquest removido!");
-			free(removido);
+            printf("Podcast removido!");
+			
 			return;
 		}
 		else if (targetEpisode == playlist->fim)
 		{
-			PodquestMVP removido = playlist->fim;
-
             if(playlist->fim->prev != NULL)
             {
                 playlist->fim = playlist->fim->prev;
@@ -116,18 +125,17 @@ void llremovePodcast(Playlist* playlist, char nomeAlvo[64], int epAlvo ){
                 }
             }
             printf("Podcast removido!");
-			free(removido);
 			return;
 		}
-		else
-		{
-			targetEpisode->next->prev = targetEpisode->prev;
-			targetEpisode->prev->next = targetEpisode->next;
-            printf("Podcast removido!");
-            free(targetEpisode);
-			return;
-		}
+
+
+
 	}
+    else
+    {
+        printf("nao encontrei");
+            
+    }
 }
 
 void lltocar(Playlist* playlist){
@@ -185,13 +193,15 @@ void llimprimeRelatorio(Playlist* playlist){
 			qtdEpisodios++;
 			qtdPodcasts++;
 		}
-        
-		printf("\nSua Playlist possui %d Podcasts diferentes e %d episodios sendo eles: \n", qtdPodcasts, qtdEpisodios);
+        playlist->atual = aux;
+		printf("\nSua Playlist possui %d Podcasts e %d episodios diferentes sendo eles: \n", qtdPodcasts, qtdEpisodios);
 		
 		for (playlist->atual = playlist->ini; playlist->atual != NULL; playlist->atual = playlist->atual->next)
 		{
-			printf("\n Podcast: %s",  playlist->atual->nomePodcast);
-			printf("\n Episodio: %d - %s\n", playlist->atual->numEpisodio, playlist->atual->nomeEpisodio);
+            if(playlist->atual != NULL){
+			    printf("\nPodcast: %s",  playlist->atual->nomePodcast);
+			    printf("\nEpisodio: %d - %s\n", playlist->atual->numEpisodio, playlist->atual->nomeEpisodio);
+            }
 		}
 		playlist->atual = aux;
 	}

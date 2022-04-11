@@ -42,7 +42,7 @@ PodquestMVP llNewPodcast();
 void llinserePodcast(Playlist* playlist);
 
 //funçao que recebe o id de um podcast e numero de um episodio do mesmo para ser removido da playlist desejada
-void llremovePodcast(Playlist* playlist, char nomePodcast[64], int numEpisodio);
+void llremovePodcast(Playlist* playlist);
 
 //funçao de busca na playlist para auxiliar na remoçao 
 PodquestMVP llBuscaPodcast(Playlist* playlist, char nomePodcast[64], int numEpisodio);

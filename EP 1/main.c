@@ -46,12 +46,7 @@ int main(){
                 llinserePodcast(playlist);
                 break;
             case 6:
-                printf("\nNome do podcast a ser removido:");
-                fgets(nomeAlvo, 64, stdin);
-                remove_newline_ch(nomeAlvo);
-                printf("\nNumero do episodio a ser removido do podcast %s:", nomeAlvo);
-                scanf("%d", &epAlvo);
-                llremovePodcast(playlist, nomeAlvo, epAlvo);
+                llremovePodcast(playlist);
                 break;
             default:
                 break;
