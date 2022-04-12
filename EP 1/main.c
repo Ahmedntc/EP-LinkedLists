@@ -12,13 +12,15 @@ int main(){
     Playlist* playlist = llNewPlaylist();
     //menu do app 
     do{
-        printf("\n1 - Relatorio da Playlist");
-		printf("\n2 - Tocar Atual");
-		printf("\n3 - Modo shuffle");
-		printf("\n4 - Tocar o proximo Podcast");
-		printf("\n5 - Adicionar Podcast no fim da playlist");
-		printf("\n6 - Remover um Podcast");
-        printf("\nDigite sua escolha:");
+        printf("\n  MENU\n");
+        printf(" -------------------------------");
+        printf("\n  1 - Relatorio da Playlist");
+		printf("\n  2 - Tocar Atual");
+		printf("\n  3 - Modo shuffle");
+		printf("\n  4 - Tocar o proximo Podcast");
+		printf("\n  5 - Adicionar Podcast no fim da playlist");
+		printf("\n  6 - Remover um Podcast");
+        printf("\n  Digite sua escolha:");
 
         scanf("%d", &opt);
         switch (opt)
