@@ -31,11 +31,11 @@ int main(){
                 break;
             case 3:
                 if(shuffle){
-                    printf("\nShuffle desativado");
+                    printf("\nShuffle desativado\n");
                     shuffle = false;
                 }else{
                     shuffle = true;
-                    printf("\nShuffle ativado");
+                    printf("\nShuffle ativado\n");
                 }
                 break;
             case 4:

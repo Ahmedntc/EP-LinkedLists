@@ -22,7 +22,7 @@ Playlist* llNewPlaylist(){
 //cria novo podcast
 PodquestMVP  llNewPodcast()
 {	
-    PodquestMVP newPodcast = (PodquestMVP*)malloc(sizeof(Podcast));
+    PodquestMVP newPodcast = (PodquestMVP)malloc(sizeof(Podcast));
 	
 	printf("\nId do Podcast: ");
 	scanf("%d", &newPodcast->idPodcast);
@@ -58,17 +58,16 @@ void llinserePodcastFim(Playlist* playlist){
     if(playlist->ini == NULL){
         playlist->ini = newPodcast;
         playlist->fim = newPodcast;
-        playlist->atual = newPodcast;
+        playlist->atual = playlist->ini;
         newPodcast->next = NULL;
         newPodcast->prev = NULL;
-    }else
+    }else 
     {
         newPodcast->prev = playlist->fim;
         newPodcast->next = NULL;
 	    playlist->fim->next= newPodcast;
 	    playlist->fim = newPodcast;
     }
-    free(newPodcast);
 }
 
 PodquestMVP llBuscaPodcast(Playlist* playlist, char nomeAlvo[64], int epAlvo){
@@ -78,7 +77,7 @@ PodquestMVP llBuscaPodcast(Playlist* playlist, char nomeAlvo[64], int epAlvo){
 		if (strcmp(aux->nomePodcast, nomeAlvo) == 0 && aux->numEpisodio == epAlvo) 
 			return aux;	
 	}
-	//Podquest nao encontrado
+	//Podcast nao encontrado
     printf("\nPodcast nao foi encontrado na playlist");
 	return NULL;
 }
@@ -169,7 +168,7 @@ void lltocarNext(Playlist* playlist, bool shuffle){
             else
             {
                 printf("\nPodcast: %s", playlist->atual->next->nomePodcast);
-                printf("\nEpisodio: #%d- %s", playlist->atual->next->numEpisodio, playlist->atual->next->nomeEpisodio);                
+                printf("\nEpisodio: #%d- %s\n", playlist->atual->next->numEpisodio, playlist->atual->next->nomeEpisodio);                
                 playlist->atual = playlist->atual->next;
             }
         }
