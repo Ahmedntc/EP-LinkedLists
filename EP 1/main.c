@@ -12,15 +12,15 @@ int main(){
     Playlist* playlist = llNewPlaylist();
     //menu do app 
     do{
-        printf("\n  MENU\n");
-        printf(" -------------------------------");
-        printf("\n  1 - Relatorio da Playlist");
-		printf("\n  2 - Tocar Atual");
-		printf("\n  3 - Modo shuffle");
-		printf("\n  4 - Tocar o proximo Podcast");
-		printf("\n  5 - Adicionar Podcast no fim da playlist");
-		printf("\n  6 - Remover um Podcast");
-        printf("\n  Digite sua escolha:");
+        printf("\nMENU\n");
+        printf("-------------------------------");
+        printf("\n1 - Relatorio da Playlist");
+		printf("\n2 - Tocar Atual");
+		printf("\n3 - Ativar ou desativar o Modo shuffle");
+		printf("\n4 - Tocar o proximo Podcast");
+		printf("\n5 - Adicionar Podcast no fim da playlist");
+		printf("\n6 - Remover um Podcast");
+        printf("\nDigite sua escolha:");
 
         scanf("%d", &opt);
         switch (opt)
@@ -32,13 +32,7 @@ int main(){
                 lltocar(playlist);
                 break;
             case 3:
-                if(shuffle){
-                    printf("\nShuffle desativado\n");
-                    shuffle = false;
-                }else{
-                    shuffle = true;
-                    printf("\nShuffle ativado\n");
-                }
+                llshuffleStatus(shuffle);
                 break;
             case 4:
                 lltocarNext(playlist, shuffle);

@@ -15,11 +15,11 @@ Playlist* llNewPlaylist(){
     newPlaylist->ini = NULL;
 	newPlaylist->atual = NULL;
 	newPlaylist->fim = NULL;
-
+    
 	return newPlaylist;
 }
 
-//cria novo podcast
+//cria novo podcast (episodio)
 PodquestMVP  llNewPodcast()
 {	
     PodquestMVP newPodcast = (PodquestMVP)malloc(sizeof(Podcast));
@@ -50,18 +50,22 @@ PodquestMVP  llNewPodcast()
 
 void llinserePodcastFim(Playlist* playlist){
     PodquestMVP newPodcast = llNewPodcast();
-
-    for(PodquestMVP aux = playlist->ini; aux != NULL; aux = aux->next){
+//mudando o valor do id p garantir que nao existam  podcasts com mesmo id
+    for(PodquestMVP aux = playlist->ini; aux != NULL; aux = aux->next)
+    {
         if(aux->idPodcast == newPodcast->idPodcast)
             newPodcast->idPodcast++;
     }
-    if(playlist->ini == NULL){
+
+    if(playlist->ini == NULL)
+    {
         playlist->ini = newPodcast;
         playlist->fim = newPodcast;
         playlist->atual = playlist->ini;
         newPodcast->next = NULL;
         newPodcast->prev = NULL;
-    }else 
+    }
+    else 
     {
         newPodcast->prev = playlist->fim;
         newPodcast->next = NULL;
@@ -143,8 +147,11 @@ void lltocar(Playlist* playlist){
         printf("\nPodcast: %s", playlist->atual->nomePodcast);
         printf("\nEpisodio: #%d- %s", playlist->atual->numEpisodio, playlist->atual->nomeEpisodio);
     }
-    else{
-        printf("\nPlaylist vazia!");
+    else
+    {
+        playlist->atual = playlist->ini;
+        printf("\nPodcast: %s", playlist->atual->nomePodcast);
+        printf("\nEpisodio: #%d- %s", playlist->atual->numEpisodio, playlist->atual->nomeEpisodio);        
     }
 }
 
@@ -172,7 +179,9 @@ void lltocarNext(Playlist* playlist, bool shuffle){
                 playlist->atual = playlist->atual->next;
             }
         }
-    }else{
+    }
+    else
+    {
         printf("\nPlaylist Vazia!");
     } 
 
@@ -185,22 +194,20 @@ void llimprimeRelatorio(Playlist* playlist){
 		//guardando o atual em uma aux para percorrer a playlist sem perde-lo
         PodquestMVP aux = playlist->atual;
 
-		int qtdPodcasts = 0;
-
+		int qtdEps, qtdPodcasts;
 
 		for (playlist->atual = playlist->ini; playlist->atual != NULL; playlist->atual = playlist->atual->next)
 		{
-			qtdPodcasts++;
+			qtdEps++;
 		}
         playlist->atual = aux;
-		printf("\nSua Playlist possui %d Podcasts diferentes sendo eles: \n", qtdPodcasts);
+		printf("\nSua Playlist possui %d Episodios diferentes sendo eles: \n", qtdEps);
 		
 		for (playlist->atual = playlist->ini; playlist->atual != NULL; playlist->atual = playlist->atual->next)
 		{
-            if(playlist->atual != NULL){
-			    printf("\nPodcast: %s",  playlist->atual->nomePodcast);
-			    printf("\nEpisodio: %d - %s\n", playlist->atual->numEpisodio, playlist->atual->nomeEpisodio);
-            }
+		    printf("\nPodcast: %s",  playlist->atual->nomePodcast);
+			printf("\nEpisodio: %d - %s\n", playlist->atual->numEpisodio, playlist->atual->nomeEpisodio);
+            
 		}
 		playlist->atual = aux;
 	}
@@ -208,6 +215,21 @@ void llimprimeRelatorio(Playlist* playlist){
 	{
 		printf("\nPlaylist vazia!\n");
 	}
+}
+
+bool llshuffleStatus(bool shuffle){
+    
+    if(shuffle)
+    {
+        shuffle = false;
+        printf("\nShuffle Desligado\n");
+    }
+    else
+    {
+        shuffle = true;
+        printf("\nShuffle Desligado\n");        
+    }
+    return shuffle;
 }
 
 

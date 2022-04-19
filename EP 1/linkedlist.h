@@ -28,7 +28,6 @@ typedef struct playlist{
 	PodquestMVP ini;
 	PodquestMVP atual;
 	PodquestMVP fim;
-
 	
 }Playlist;
 
@@ -59,6 +58,9 @@ void lltocar(Playlist* playlist);
 
 //função que imprime a playlist
 void llimprimeRelatorio(Playlist* playlist);
+
+//altera o estado de shuffle 
+bool llshuffleStatus(bool shuffle);
 
 
 
